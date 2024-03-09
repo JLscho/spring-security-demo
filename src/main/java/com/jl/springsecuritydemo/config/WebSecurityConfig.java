@@ -24,6 +24,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/custom/**").authenticated()
                                 .requestMatchers("/default/**").permitAll()
+                                .requestMatchers("/auth/**").hasRole("ADMIN")
                 )
                 //inject default BasicAuthenticationFilter
                 .httpBasic(Customizer.withDefaults())
@@ -34,8 +35,8 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsService loadMyInMemoryUserDetailsService() {
-        UserDetails user1 = User.builder().username("testUser1").password("12345").build();
-        UserDetails user2 = User.builder().username("testUser2").password("test12345").build();
+        UserDetails user1 = User.builder().username("testUser1").password("12345").roles("ADMIN").build();
+        UserDetails user2 = User.builder().username("testUser2").password("test12345").roles("USER").build();
         return new InMemoryUserDetailsManager(List.of(user1, user2));
     }
 
