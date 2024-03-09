@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                 )
                 //inject default BasicAuthenticationFilter
                 .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .addFilterBefore(new LogCaptureFilter(), BasicAuthenticationFilter.class)
                 .build();
     }
